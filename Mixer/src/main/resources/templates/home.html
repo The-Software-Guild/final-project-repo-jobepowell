@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <link rel="stylesheet" href="./mixer.css">
+        <title>Mixer Home Page</title>
+    </head>
+    <body class="pink">
+        <!-- Main Body of Page -->
+        <div class="container blush ">
+            <div class="row m-4">
+                <div class="col text-center border border-dark green">
+                    <h1 ><a href="/" class="text-dark" >Mixer®</a></h1>
+                </div>
+            </div>
+            <div class="row m-4 border border-dark">
+                <div class="col text-center m-3">
+                    <a href="home" class="btn btn-outline-primary btn-lg">Home</a>
+                </div>
+                <div class="col text-center m-3">
+                    <a href="random" class="btn btn-outline-primary btn-lg">Random</a>
+                </div>
+                <div class="col text-center m-3">
+                    <a href="#" th:href="generate" class="btn btn-outline-primary btn-lg">Generate Recipes</a>
+                </div>
+                <form action="search" method="POST">
+                    <label for="search">Search Cocktails</label>
+                    <input type="text" name="search" 
+                           id="search" class="form-control"/>
+                    <button type="submit" class="btn btn-primary blue">Search</button>
+                </form>
+            </div>
+            <div class="row m-4 border border-dark blue">
+                <h1 class="col text-center m-3 text-center " style="font-family: Snell Roundhand">HELLO COCKTAIL ENTHUSIASTS</h1>
+            </div>
+            <h1>Custom Drinks</h1>
+            <div class="row m-4 border border-dark mango">
+                <table class="table table-striped">
+                    <thead>
+                    <th>Name
+                    </th>
+                    <th>Preview
+                    </th> 
+                    <th>Details
+                    </th>
+                    <th>Delete
+
+                    </th>
+                    </thead>
+                    <tbody>
+                        <tr th:each="drink : ${custom}">
+                            <td th:text="${drink.strDrink}">
+                                Drink Name
+                            </td>
+                            <td>
+                                <img style="width: 100px; height: 100px;" th:src="${drink.strDrinkThumb}" th:alt="${drink.strDrink}">
+                            </td>
+                            <td>
+                                <a href="#" th:href="@{/detail(id=${drink.idDrink})}">Details</a>
+                            </td>
+                            <td>
+                                <a href="#" th:href="@{/delete(id=${drink.idDrink})}" onclick="return confirm('Are you sure?')">Delete</a>
+                            </td>
+                        </tr>    
+                    </tbody>
+                </table>
+                <a href="add"  class="btn btn-primary blue"> Create New Drink</a>
+            </div>
+            <h1>Popular Drinks</h1>
+            <div class="row m-4 border border-dark">
+                <table class="table table-striped">
+                    <thead>
+                    <th>Name
+                    </th>
+                    <th>Preview
+                    </th> 
+                    <th>Details
+                    </th> 
+                    </thead>
+                    <tbody>
+                        <tr th:each="drink : ${popular}">
+                            <td th:text="${drink.strDrink}">
+                                Drink Name
+                            </td>
+                            <td>
+                                <img style="width: 100px; height: 100px;" th:src="${drink.strDrinkThumb}" th:alt="${drink.strDrink}">
+                            </td>
+                            <td>
+                                <a href="#" th:href="@{/detail(id=${drink.idDrink})}">Details</a>
+                            </td>
+                        </tr>    
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- End main body -->
+
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    </body>
+</html>
+

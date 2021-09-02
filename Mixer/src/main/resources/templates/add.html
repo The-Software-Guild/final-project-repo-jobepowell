@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <link rel="stylesheet" href="./mixer.css">
+        <title>Mixer Home Page</title>
+    </head>
+    <body class="pink">
+        <!-- Main Body of Page -->
+        <div class="container blush ">
+            <div class="row m-4">
+                <div class="col text-center border border-dark green">
+                    <h1 ><a href="/" class="text-dark" >Mixer®</a></h1>
+                </div>
+            </div>
+            <div class="row m-4 border border-dark">
+                <div class="col text-center m-3">
+                    <a href="home" class="btn btn-outline-primary btn-lg">Home</a>
+                </div>
+                <div class="col text-center m-3">
+                    <a href="random" class="btn btn-outline-primary btn-lg">Random</a>
+                </div>
+                <div class="col text-center m-3">
+                    <a href="#" th:href="generate" class="btn btn-outline-primary btn-lg">Generate Recipes</a>
+                </div>
+                <form action="search" method="POST">
+                    <label for="search">Search Cocktails</label>
+                    <input type="text" name="search" 
+                           id="search" class="form-control"/>
+                    <button type="submit" class="btn btn-primary blue">Search</button>
+                </form>
+            </div>
+            <div class="row m-4 border border-dark">
+                <div class="col-3 text-center m-3">
+                    <span class="h3">Add Custom Drink</span>
+                </div>
+
+                <!-- Validation for adding new Organization-->
+                <div class="col-12 m-1 text-center" 
+                     th:if="${!errors.isEmpty()}">
+                    <p class="alert alert-danger" 
+                       th:each="error : ${errors}" th:text="${error.message}">Error message</p>
+                </div>
+
+
+                <div class="col-7 text-center m-3">
+                    <form action="addCustomDrink" method="POST">
+                        <div class="form-group row">
+                            <label for="name" class="col-3 col-form-label">
+                                Drink Name<span style="color : red">*</span></label>
+                            <div class="col-9">
+                                <input type="text" name="name" 
+                                       id="name" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="glass" class="col-3 col-form-label">
+                                Glass</label>
+                            <div class="col-9">
+                                <select id="glass" name="glass" 
+                                        class="form-control" >
+                                    <option disabled selected value th:value="Nothing"> -- select an option -- </option>
+                                    <option th:each="glass : ${glasses}" 
+                                            th:value="${glass}" 
+                                            th:text="${glass}">
+                                        Glass</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="category" class="col-3 col-form-label">
+                                Category</label>
+                            <div class="col-9">
+                                <select id="category" name="category" 
+                                        class="form-control" >
+                                    <option disabled selected value> -- select an option -- </option>
+                                    <option th:each="category : ${categories}" 
+                                            th:value="${category}" 
+                                            th:text="${category}">
+                                        Category</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="ingredient1" class="col-3 col-form-label">
+                                Ingredient 1<span style="color : red">*</span></label>
+                            <div class="col-6">
+                                <select id="ingredient1" name="ingredient1" 
+                                        class="form-control" >
+                                    <option disabled selected value> -- select an option -- </option>
+                                    <option th:each="ingredient : ${ingredients}" 
+                                            th:value="${ingredient}" 
+                                            th:text="${ingredient}">
+                                        Ingredient1</option>
+                                </select>
+                            </div>
+                            <div class="col-3 text-left">
+                                <label for="measure1" class="col-3 col-form-label">
+                                    Measurement</label>
+                                <input type="text" name="measure1" 
+                                       id="measure1" class="form-control col-6"/>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group row">
+                            <label for="ingredient2" class="col-3 col-form-label">
+                                Ingredient 2</label>
+                            <div class="col-6">
+                                <select id="ingredient2" name="ingredient2" 
+                                        class="form-control" >
+                                    <option disabled selected value> -- select an option -- </option>
+                                    <option th:each="ingredient : ${ingredients}" 
+                                            th:value="${ingredient}" 
+                                            th:text="${ingredient}">
+                                        Ingredient2</option>
+                                </select>
+                            </div>
+                            <div class="col-3 text-left">
+                                <label for="measure2" class="col-3 col-form-label">
+                                    Measurement</label>
+                                <input type="text" name="measure2" 
+                                       id="measure2" class="form-control col-6"/>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group row">
+                            <label for="ingredient3" class="col-3 col-form-label">
+                                Ingredient 3</label>
+                            <div class="col-6">
+                                <select id="ingredient3" name="ingredient3" 
+                                        class="form-control" >
+                                    <option disabled selected value> -- select an option -- </option>
+                                    <option th:each="ingredient : ${ingredients}" 
+                                            th:value="${ingredient}" 
+                                            th:text="${ingredient}">
+                                        Ingredient3</option>
+                                </select>
+                            </div>
+                            <div class="col-3 text-left">
+                                <label for="measure3" class="col-3 col-form-label">
+                                    Measurement</label>
+                                <input type="text" name="measure3" 
+                                       id="measure3" class="form-control col-6"/>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group row">
+                            <label for="ingredient4" class="col-3 col-form-label">
+                                Ingredient 4</label>
+                            <div class="col-6">
+                                <select id="ingredient4" name="ingredient4" 
+                                        class="form-control" >
+                                    <option disabled selected value> -- select an option -- </option>
+                                    <option th:each="ingredient : ${ingredients}" 
+                                            th:value="${ingredient}" 
+                                            th:text="${ingredient}">
+                                        Ingredient4</option>
+                                </select>
+                            </div>
+                            <div class="col-3 text-left">
+                                <label for="measure4" class="col-3 col-form-label">
+                                    Measurement</label>
+                                <input type="text" name="measure4" 
+                                       id="measure4" class="form-control col-6"/>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group row">
+                            <label for="ingredient5" class="col-3 col-form-label">
+                                Ingredient 5</label>
+                            <div class="col-6">
+                                <select id="ingredient5" name="ingredient5" 
+                                        class="form-control" >
+                                    <option disabled selected value> -- select an option -- </option>
+                                    <option th:each="ingredient : ${ingredients}" 
+                                            th:value="${ingredient}" 
+                                            th:text="${ingredient}">
+                                        Ingredient5</option>
+                                </select>
+                            </div>
+                            <div class="col-3 text-left">
+                                <label for="measure5" class="col-3 col-form-label">
+                                    Measurement</label>
+                                <input type="text" name="measure5" 
+                                       id="measure5" class="form-control col-6"/>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group row">
+                            <label for="ingredient6" class="col-3 col-form-label">
+                                Ingredient 6</label>
+                            <div class="col-6">
+                                <select id="ingredient6" name="ingredient6" 
+                                        class="form-control" >
+                                    <option disabled selected value> -- select an option -- </option>
+                                    <option th:each="ingredient : ${ingredients}" 
+                                            th:value="${ingredient}" 
+                                            th:text="${ingredient}">
+                                        Ingredient6</option>
+                                </select>
+                            </div>
+                            <div class="col-3 text-left">
+                                <label for="measure6" class="col-3 col-form-label">
+                                    Measurement</label>
+                                <input type="text" name="measure6" 
+                                       id="measure6" class="form-control col-6"/>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group row">
+                            <label for="ingredient7" class="col-3 col-form-label">
+                                Ingredient 7</label>
+                            <div class="col-6">
+                                <select id="ingredient7" name="ingredient7" 
+                                        class="form-control" >
+                                    <option disabled selected value> -- select an option -- </option>
+                                    <option th:each="ingredient : ${ingredients}" 
+                                            th:value="${ingredient}" 
+                                            th:text="${ingredient}">
+                                        Ingredient7</option>
+                                </select>
+                            </div>
+                            <div class="col-3 text-left">
+                                <label for="measure7" class="col-3 col-form-label">
+                                    Measurement</label>
+                                <input type="text" name="measure7" 
+                                       id="measure7" class="form-control col-6"/>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group row">
+                            <label for="ingredient8" class="col-3 col-form-label">
+                                Ingredient 8</label>
+                            <div class="col-6">
+                                <select id="ingredient8" name="ingredient8" 
+                                        class="form-control" >
+                                    <option disabled selected value> -- select an option -- </option>
+                                    <option th:each="ingredient : ${ingredients}" 
+                                            th:value="${ingredient}" 
+                                            th:text="${ingredient}">
+                                        Ingredient8</option>
+                                </select>
+                            </div>
+                            <div class="col-3 text-left">
+                                <label for="measure8" class="col-3 col-form-label">
+                                    Measurement</label>
+                                <input type="text" name="measure8" 
+                                       id="measure8" class="form-control col-6"/>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group row">
+                            <label for="instructions" class="col-3 col-form-label">
+                                Directions<span style="color : red">*</span>: </label>
+                            <div class="col-9" >
+                               <textarea name="instructions" style="display: flex; justify-content: flex-start; width: 400px ;height: 200px"></textarea>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Add Drink</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+        <!-- End main body -->
+
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    </body>
+</html>
