@@ -1,15 +1,6 @@
 DROP DATABASE IF EXISTS mixerdb;
 CREATE DATABASE mixerdb;
 USE mixerdb;
-
-CREATE TABLE ingredient(
-	idIngredient INT AUTO_INCREMENT NOT NULL,
-    strIngredient VARCHAR(100) NOT NULL,
-    strDescription VARCHAR(500) NOT NULL,
-    strType VARCHAR(100) NOT NULL,
-    strAlcohol VARCHAR(10),
-    strABV VARCHAR (10),
-    PRIMARY KEY (idIngredient));
     
 CREATE TABLE drink(
 	idDrink INT AUTO_INCREMENT NOT NULL,

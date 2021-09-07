@@ -125,6 +125,7 @@ public class MainController {
         String name = request.getParameter("name");
         String glass = request.getParameter("glass");
         String tags = request.getParameter("tags");
+        String category = request.getParameter("category");
         String instructions = request.getParameter("instructions");
         
         //Ingredients from html
@@ -167,6 +168,7 @@ public class MainController {
         drink.setStrDrink(name);
         drink.setStrGlass(glass);
         drink.setStrTags("Custom Drink");
+        drink.setStrCategory(category);
         drink.setStrDrinkThumb("https://dutchdrinksservice.com/wp-content/uploads/2020/08/default-product-image-300x300-1.gif");
         
         //Set of ingredients
